@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+
+.aseats {
+	width: 600px;
+	float: left;
+	position:relative;
+	left: 30%;
+
+}
+.row{
+	width: 800px;
+}
+.gray{
+	background-color: #9E9E9E;
+}
+.red{
+	background-color: #303F9F;
+}
+.countppl {
+	float: left;
+	width: 100px;
+	margin-left: 50px;
+}
+
+.txt {
+	width: 90px;
+	text-align: center;
+}
+
+.down, .up, .now {
+	width: 25px;
+	height: 22px;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-left: 5px;
+	float: left;
+	text-align: center;
+}
+
+.A4, .B4, .C4, .D4, .E4, .F4, .G4, .H4, .I4, .J4, .K4 {
+	margin-right: 50px;
+}
+
+.A11, .B11, .C11, .D11, .E11, .F11, .G11, .H11, .I11, .J11, .K11 {
+	margin-left: 50px;
+}
+
+.seat {
+	margin-top: 0px;
+	padding-top: 0px;
+	font-size: 7pt;
+	text-align: center;
+	border: 1px solid;
+	width: 22px;
+	height: 20px;
+	display: inline-block;
+}
+
+.seat:hover {
+	background-color:  #209BF2;
+	cursor: pointer;
+}
+
+.p {
+	display: inline-block;
+	width: 10px;
+	height: 5px;
+	font-size: small;
+}
+
+.clear {
+	clear: both;
+	height: 50px;
+}
+.payment{
+	border: 2px solid;
+	width: 300px;
+	height: 600px;
+	margin-top: 10px;
+	padding: 20px;
+	border-radius: 15px;
+	float: left;
+	position: relative;
+	left: 30%;
+	background-color: #424242;
+	color: white;
+}
+.reserved{
+	background-color:  #209BF2;
+}
+.mv_title{
+	font-size: 22pt;	
+}
+.poster{
+	width: 100px;
+	height: 170px;
+	float: right;
+}
+.color{
+	width: 17px;
+	height: 17px;
+	float: left;
+	margin-right: 8px;
+	margin-left: 5px;
+}
+.option{
+	float: left;
+		margin-right: 22px;
+	
+}
+.finreservation{
+	width: 48%;
+	height: 30px;
+	background-color: #209BF2;
+	
+}
+.goback{
+	width: 48%;
+	height: 30px;
+	background-color: #9E9E9E;
+	
+}
+.ttm{
+	float: left;
+}
+.gradeimg{
+	float: left;
+	margin-right: 15px; 
+}
+
+
