@@ -1,0 +1,13 @@
+@charset "UTF-8";
+.catagories div{
+	background-color: aqua;
+	display: inline-block;
+	font-size: 30px;
+	margin-right: 50px;
+	border-bottom: 5px solid;
+}
+.catagories {
+	border-bottom: 3px solid;
+	width: auto;
+	text-align: center;
+}

@@ -3,10 +3,9 @@
 <!DOCTYPE html>
 <html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="./css/reseat.css">
+<link rel="stylesheet" href="./css/reseat4.css">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/reseat2.css" />
 
 <title>CGV::reseat</title>
 <script src="./js/jquery-3.7.0.min.js"></script>
@@ -24,7 +23,7 @@
 		$(".up").click(
 				function() {
 					let nownum = parseInt($(this).siblings(".now").text());
-					let pplkind = $(this).parent().siblings(".txt").text();
+					let pplkind = $(this).parent().siblings(".txt").text(); 
 					if (countnow <= 7) {
 
 						if (nownum <= 7) {
@@ -40,13 +39,15 @@
 							+ parseInt($(".now3").text());
 					$(".selectednum").text("선택인원수 : " + countnow);
 					if(pplkind=="성인"){
-					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   25000원 X " + (nownum+1) + " = "+ ((nownum+1)*25000)+"원");
+
+
+					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   25,000원 X " + (nownum+1) + " = "+ ((nownum+1)*25000).toLocaleString()+"원");
 						
 					}else if(pplkind =="청소년"){
-						$("."+pplkind).html(pplkind + " : &nbsp &nbsp   23000원 X " + (nownum+1) + " = "+ ((nownum+1)*23000)+"원");
+						$("."+pplkind).html(pplkind + " : &nbsp &nbsp   23,000원 X " + (nownum+1) + " = "+ ((nownum+1)*23000).toLocaleString()+"원");
 
 					} else if (pplkind =="우대"){
-						$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   20000원 X " + (nownum+1) + " = "+ ((nownum+1)*20000)+"원");
+						$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   20,000원 X " + (nownum+1) + " = "+ ((nownum+1)*20000).toLocaleString()+"원");
 
 					}
 				});
@@ -64,13 +65,13 @@
 			+ parseInt($(".now3").text());
 			$(".selectednum").text("선택인원수 : " + countnow);
 			if(pplkind=="성인"){
-				$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   25000원 X " + (nownum-1) + " = "+ ((nownum-1)*25000)+"원");
+				$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   25,000원 X " + (nownum-1) + " = "+ ((nownum-1)*25000).toLocaleString()+"원");
 					
 				}else if(pplkind =="청소년"){
-					$("."+pplkind).html(pplkind + " : &nbsp &nbsp   23000원 X " + (nownum-1) + " = "+ ((nownum-1)*23000)+"원");
+					$("."+pplkind).html(pplkind + " : &nbsp &nbsp   23,000원 X " + (nownum-1) + " = "+ ((nownum-1)*23000).toLocaleString()+"원");
 
 				} else if (pplkind =="우대"){
-					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   20000원 X " + (nownum-1) + " = "+ ((nownum-1)*20000)+"원");
+					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   20,000원 X " + (nownum-1) + " = "+ ((nownum-1)*20000).toLocaleString()+"원");
 
 				}
 
@@ -82,7 +83,7 @@
 		function seatclick() {
 		countnow = parseInt($(".now1").text()) + parseInt($(".now2").text()) + parseInt($(".now3").text());
 			  $(".seat").click(function() {
-				$(".totalmoney").html($(".now1").text()*25000 +$(".now2").text()*23000 + $(".now3").text()*20000 );
+				$(".totalmoney").html(($(".now1").text()*25000 +$(".now2").text()*23000 + $(".now3").text()*20000).toLocaleString() );
 			    let sval = $(this).clone().find('input').remove().end().text().trim();
 	            let svaltwo;
 				
@@ -93,13 +94,12 @@
 	            };
 
 
-		    	  
 
 			    $.ajax({
 			      url: "./occupied",
 			      type: "get",
 			      data: {
-			        sval: sval, svaltwo:svaltwo
+			        sval: sval, svaltwo:svaltwo, ms_idx:${ms_idx}
 			      },
 			      dataType: "json",
 			      
@@ -273,14 +273,23 @@
 		seatclick();
 		
 		
-			$(document).on("click", ".finreservation", function(){
-				let form = $('<form></form>');
-				form.attr("action","./reseat");
-				form.attr("method", "post");
-				form.append($("<input>",{type:'hidden', name:"svallist", value:svallist}));
-				form.appendTo("body");
-				form.submit();
-			});
+		$(document).on("click", ".finreservation", function(){
+			if(!(svallist == null) && !(svallist == "")){
+			let form = $('<form></form>');
+			form.attr("action","./reseat4");
+			form.attr("method", "post");
+			form.append($("<input>",{type:'hidden', name:"list", value:svallist}));
+			form.append($("<input>",{type:'hidden', name:"ms_idx", value:${ms_idx}}));
+			form.append($("<input>",{type:'hidden', name:"adult", value:$(".now1").text()}));
+			form.append($("<input>",{type:'hidden', name:"youth", value:$(".now2").text()}));
+			form.append($("<input>",{type:'hidden', name:"special", value:$(".now3").text()}));
+			form.appendTo("body");
+			form.submit();
+			}else{
+				alert("좌석을 선택해주세요");
+				return false;
+			}
+		});
 		
 		
 	});
@@ -327,6 +336,7 @@
 			<img style="width:500px; " alt="image" src="../img/screen2.png">
 			<div class="row">
 				<p class="p">A</p>
+			
 				<c:forEach begin="0" end="13" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
@@ -469,9 +479,9 @@
 			<div class="clear"></div>
 			<div>
 				<div class="selectednum">선택인원수 : 0 </div>
-				<div class="성인">성인 : &nbsp &nbsp &nbsp &nbsp   25000원 X 0 = 0원 </div>
-				<div class="청소년">청소년 : &nbsp &nbsp    23000원 X 0 = 0원 </div>
-				<div class="우대">우대 : &nbsp &nbsp &nbsp &nbsp     20000원 X 0 = 0원</div>
+				<div class="성인">성인 : &nbsp &nbsp &nbsp &nbsp   25,000원 X 0 = 0원 </div>
+				<div class="청소년">청소년 : &nbsp &nbsp    23,000원 X 0 = 0원 </div>
+				<div class="우대">우대 : &nbsp &nbsp &nbsp &nbsp     20,000원 X 0 = 0원</div>
 				<div class="selectedseats">선택좌석 :</div>
 				<br><br>
 				<div class="ttm">총결제액 : </div>

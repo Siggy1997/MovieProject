@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="./css/reseat3.css">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/reseat2.css" />
 
 <title>CGV::reseat</title>
 <script src="./js/jquery-3.7.0.min.js"></script>
@@ -41,13 +41,13 @@
 					if(pplkind=="성인"){
 
 
-					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   14,000원 X " + (nownum+1) + " = "+ ((nownum+1)*14000).toLocaleString()+"원");
+					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   16,000원 X " + (nownum+1) + " = "+ ((nownum+1)*16000).toLocaleString()+"원");
 						
 					}else if(pplkind =="청소년"){
-						$("."+pplkind).html(pplkind + " : &nbsp &nbsp   11,000원 X " + (nownum+1) + " = "+ ((nownum+1)*11000).toLocaleString()+"원");
+						$("."+pplkind).html(pplkind + " : &nbsp &nbsp   13,000원 X " + (nownum+1) + " = "+ ((nownum+1)*13000).toLocaleString()+"원");
 
 					} else if (pplkind =="우대"){
-						$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   8,000원 X " + (nownum+1) + " = "+ ((nownum+1)*8000).toLocaleString()+"원");
+						$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   10,000원 X " + (nownum+1) + " = "+ ((nownum+1)*10000).toLocaleString()+"원");
 
 					}
 				});
@@ -65,13 +65,13 @@
 			+ parseInt($(".now3").text());
 			$(".selectednum").text("선택인원수 : " + countnow);
 			if(pplkind=="성인"){
-				$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   14,000원 X " + (nownum-1) + " = "+ ((nownum-1)*14000).toLocaleString()+"원");
+				$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   16,000원 X " + (nownum-1) + " = "+ ((nownum-1)*16000).toLocaleString()+"원");
 					
 				}else if(pplkind =="청소년"){
-					$("."+pplkind).html(pplkind + " : &nbsp &nbsp   11,000원 X " + (nownum-1) + " = "+ ((nownum-1)*11000).toLocaleString()+"원");
+					$("."+pplkind).html(pplkind + " : &nbsp &nbsp   13,000원 X " + (nownum-1) + " = "+ ((nownum-1)*13000).toLocaleString()+"원");
 
 				} else if (pplkind =="우대"){
-					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   8,000원 X " + (nownum-1) + " = "+ ((nownum-1)*8000).toLocaleString()+"원");
+					$("."+pplkind).html(pplkind + " : &nbsp &nbsp &nbsp &nbsp   10,000원 X " + (nownum-1) + " = "+ ((nownum-1)*10000).toLocaleString()+"원");
 
 				}
 
@@ -83,7 +83,7 @@
 		function seatclick() {
 		countnow = parseInt($(".now1").text()) + parseInt($(".now2").text()) + parseInt($(".now3").text());
 			  $(".seat").click(function() {
-				$(".totalmoney").html(($(".now1").text()*14000 +$(".now2").text()*11000 + $(".now3").text()*8000).toLocaleString()+"원" );
+				$(".totalmoney").html(($(".now1").text()*16000 +$(".now2").text()*13000 + $(".now3").text()*10000).toLocaleString() );
 			    let sval = $(this).clone().find('input').remove().end().text().trim();
 	            let svaltwo;
 				
@@ -275,21 +275,22 @@
 		
 		$(document).on("click", ".finreservation", function(){
 			if(!(svallist == null) && !(svallist == "")){
-				let form = $('<form></form>');
-				form.attr("action","./reseat2");
-				form.attr("method", "post");
-				form.append($("<input>",{type:'hidden', name:"list", value:svallist}));
-				form.append($("<input>",{type:'hidden', name:"ms_idx", value:${ms_idx}}));
-				form.append($("<input>",{type:'hidden', name:"adult", value:$(".now1").text()}));
-				form.append($("<input>",{type:'hidden', name:"youth", value:$(".now2").text()}));
-				form.append($("<input>",{type:'hidden', name:"special", value:$(".now3").text()}));
-				form.appendTo("body");
-				form.submit();
+			let form = $('<form></form>');
+			form.attr("action","./reseat3");
+			form.attr("method", "post");
+			form.append($("<input>",{type:'hidden', name:"list", value:svallist}));
+			form.append($("<input>",{type:'hidden', name:"ms_idx", value:${ms_idx}}));
+			form.append($("<input>",{type:'hidden', name:"adult", value:$(".now1").text()}));
+			form.append($("<input>",{type:'hidden', name:"youth", value:$(".now2").text()}));
+			form.append($("<input>",{type:'hidden', name:"special", value:$(".now3").text()}));
+			form.appendTo("body");
+			form.submit();
 			}else{
 				alert("좌석을 선택해주세요");
 				return false;
 			}
 		});
+		
 		
 	});
 	
@@ -327,14 +328,16 @@
 				<button type="button" class="up">+</button>
 			</div>
 		</div>
+		
 	</div>
 
 	<div class="clear"></div>
 	
 			<img style="width:500px; " alt="image" src="../img/screen2.png">
 			<div class="row">
-				<p class="p">A</p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp
-				<c:forEach begin="0" end="7" var="i">
+				<p class="p">A</p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+			
+				<c:forEach begin="0" end="9" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -343,8 +346,8 @@
 			</div>
 
 			<div class="row">
-				<p class="p">B</p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp
-				<c:forEach begin="8" end="15" var="i">
+				<p class="p">B</p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+				<c:forEach begin="10" end="19" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -352,8 +355,8 @@
 				</c:forEach>
 			</div>
 			<div class="row">
-				<p class="p">C</p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp
-				<c:forEach begin="16" end="23" var="i">
+				<p class="p">C</p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+				<c:forEach begin="20" end="29" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -361,8 +364,8 @@
 				</c:forEach>
 			</div>
 			<div class="row">
-				<p class="p">D</p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp
-				<c:forEach begin="24" end="31" var="i">
+				<p class="p">D</p>
+				<c:forEach begin="30" end="43" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -370,8 +373,8 @@
 				</c:forEach>
 			</div>
 			<div class="row">
-				<p class="p">E</p>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp
-				<c:forEach begin="32" end="39" var="i">
+				<p class="p">E</p>
+				<c:forEach begin="44" end="57" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -380,7 +383,7 @@
 			</div>
 			<div class="row">
 				<p class="p">F</p>
-				<c:forEach begin="40" end="51" var="i">
+				<c:forEach begin="58" end="71" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -389,7 +392,7 @@
 			</div>
 			<div class="row">
 				<p class="p">G</p>
-				<c:forEach begin="52" end="63" var="i">
+				<c:forEach begin="72" end="85" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -398,7 +401,7 @@
 			</div>
 			<div class="row">
 				<p class="p">H</p>
-				<c:forEach begin="64" end="75" var="i">
+				<c:forEach begin="86" end="99" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -407,7 +410,7 @@
 			</div>
 			<div class="row">
 				<p class="p">I</p>
-				<c:forEach begin="76" end="87" var="i">
+				<c:forEach begin="100" end="113" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -416,7 +419,7 @@
 			</div>
 			<div class="row">
 				<p class="p">J</p>
-				<c:forEach begin="88" end="99" var="i">
+				<c:forEach begin="114" end="127" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -425,7 +428,7 @@
 			</div>
 			<div class="row">
 				<p class="p">K</p>
-				<c:forEach begin="100" end="111" var="i">
+				<c:forEach begin="128" end="141" var="i">
 					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
 						<input type="hidden" name="${slist[i].ss_seat}"
 							class="${slist[i].ss_res}">
@@ -476,9 +479,9 @@
 			<div class="clear"></div>
 			<div>
 				<div class="selectednum">선택인원수 : 0 </div>
-				<div class="성인">성인 : &nbsp &nbsp &nbsp &nbsp   14,000원 X 0 = 0원 </div>
-				<div class="청소년">청소년 : &nbsp &nbsp    11,000원 X 0 = 0원 </div>
-				<div class="우대">우대 : &nbsp &nbsp &nbsp &nbsp     8,000원 X 0 = 0원</div>
+				<div class="성인">성인 : &nbsp &nbsp &nbsp &nbsp   16,000원 X 0 = 0원 </div>
+				<div class="청소년">청소년 : &nbsp &nbsp    13,000원 X 0 = 0원 </div>
+				<div class="우대">우대 : &nbsp &nbsp &nbsp &nbsp     10,000원 X 0 = 0원</div>
 				<div class="selectedseats">선택좌석 :</div>
 				<br><br>
 				<div class="ttm">총결제액 : </div>

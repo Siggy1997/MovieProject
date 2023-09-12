@@ -38,11 +38,11 @@
 	text-align: center;
 }
 
-.A4, .B4, .C4, .D4, .E4, .F4, .G4, .H4, .I4, .J4, .K4 {
+.A2, .B2, .C2, .D4, .E4, .F4, .G4, .H4, .I4, .J4, .K4 {
 	margin-right: 50px;
 }
 
-.A11, .B11, .C11, .D11, .E11, .F11, .G11, .H11, .I11, .J11, .K11 {
+.A9, .B9, .C9, .D11, .E11, .F11, .G11, .H11, .I11, .J11, .K11 {
 	margin-left: 50px;
 }
 
@@ -90,7 +90,7 @@
 	background-color:  #209BF2;
 }
 .mv_title{
-	font-size: 22pt;	
+	font-size: 20pt;	
 }
 .poster{
 	width: 100px;

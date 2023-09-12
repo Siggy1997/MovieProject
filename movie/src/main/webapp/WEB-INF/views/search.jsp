@@ -9,5 +9,10 @@
 <body>
 	<%@ include file="menu.jsp"%>
 	<h1>SEARCH</h1>
+	${list }
+	${ms_idx}
+	${adult }
+	${youth }
+	${special }
 </body>
 </html>

@@ -2,59 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.movie.web.reseat.ReseatDAO">
-	<select id="seatnum" resultType="Map">
-		SELECT ss_seat , ss_res
+	<select id="seatnum" resultType="Map" parameterType="String">
+		SELECT
+		ss_seat , ss_res
 		FROM
 		screen_seat
-		
-		WHERE ms_idx=13
-		
+
+		WHERE ms_idx=#{ms_idx}
+
 		ORDER BY
 		SUBSTRING(ss_seat, 1, 1),
 		CAST(SUBSTRING(ss_seat, 2)
 		AS
 		SIGNED)
-		
+
 	</select>
 
-	<select id="reserve" resultType="Integer">
-		SELECT count(*)
+	<select id="reserve" resultType="Integer" parameterType="Map">
+		SELECT count(*) as count
 		FROM screen_seat
-		WHERE ss_seat=#{sval} AND ss_res='N' 
-		AND ms_idx=13
-
+		WHERE ms_idx=#{ms_idx} AND ss_res='N'
+		AND ss_seat=#{sval}
 	</select>
-	<select id="reservetwo" resultType="Integer">
-		SELECT count(*)
+
+
+
+
+	<select id="reservetwo" resultType="Integer"
+		parameterType="String">
+		SELECT count(*) as count
 		FROM
 		screen_seat
-		WHERE ss_seat=#{svaltwo} AND ss_res='N'
-		AND ms_idx=13
+		WHERE
+		ss_seat=#{svaltwo} AND ss_res='N'
+		AND ms_idx=#{ms_idx}
 
 	</select>
 
 
-	<update id="finreservation" parameterType="List">
-		UPDATE screen_seat
-		SET ss_res = 'N'
-		
-		WHERE ms_idx=13 
-		
-		AND ss_seat IN
-		<foreach item="item" collection="list" open="(" separator=","
-			close=")">
-			#{item}
-		</foreach>
-	</update>
+<update id="finreservation" parameterType="Map">
+    UPDATE screen_seat
+    SET ss_res = 'N'
+    WHERE ms_idx = #{ms_idx}
+    AND ss_seat IN
+    <foreach item="item" collection="list" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+</update>
+
+	
 
 	<select id="movieschedule" resultType="Map">
-		SELECT s.ms_stime, s.ms_etime, s.ms_sdate, i.mv_name, i.mv_country, i.mv_grade, i.mv_poster, i.mv_runtime, i.mv_genre, i.mv_gradeimg,t.th_city, t.th_kind
+		SELECT 
+		TIME_FORMAT(s.ms_stime, '%H:%i') as ms_stime,
+		TIME_FORMAT(s.ms_etime, '%H:%i') as ms_etime,
+		 s.ms_sdate, i.mv_name, i.mv_country, i.mv_grade,
+		i.mv_poster, i.mv_runtime, i.mv_genre, i.mv_gradeimg,t.th_city,
+		t.th_kind
 		FROM movie_schedule s
 		JOIN movie_info i
 		JOIN theater_info t
-		
-		WHERE s.ms_idx=13 
-		
+
+		WHERE s.ms_idx=#{ms_idx}
+
 		AND i.mv_idx=s.mv_idx AND t.th_idx=s.th_idx;
 
 	</select>

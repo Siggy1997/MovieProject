@@ -8,15 +8,17 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ReseatDAO {
 
-	List<Map<String, Object>> seatnum();
+	List<Map<String, Object>> seatnum(String ms_idx);
 
-	int reserve(String sval);
+	int reserve(Map<String, Object> val);
 
-	int reservetwo(String svaltwo);
+	int reservetwo(Map<String, Object> val);
 
-	void finreservation(List<String> list);
+	Map<String, Object> movieschedule(String ms_idx);
 
-	Map<String, Object> movieschedule();
+	void finreservation(Map<String, Object> params);
+
+
 
 
 

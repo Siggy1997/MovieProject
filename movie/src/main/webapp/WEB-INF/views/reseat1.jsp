@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/reseat2.css" />
+<link rel="stylesheet" href="./css/reseat1.css" />
 
 <title>CGV::reseat</title>
 <script src="./js/jquery-3.7.0.min.js"></script>
@@ -130,7 +130,7 @@
 					        	  
 			           	      	$(".reserved").click(function() {
 				            		$(".seat").removeClass("gray");
-				              		$(".reserved").removeClass("reserved");
+				              		$(".reserved").removeClass();
 				              		svallist.length = 0;
 									countnow=0;
 				             		seatclick();
@@ -146,13 +146,13 @@
 				          } else {
 				        	  if(!(svallist.includes(sval)) || !(svallist.includes(svaltwo))){
 				        		  
-				        	  svallist.push(sval);
-				        	  svallist.push(svaltwo);
 				        	  	$(".seat").addClass("gray");
 				        	  	$(".N").parent().addClass("red");
 				        	  	$("." + sval).addClass("reserved");
 				        	  	$("." + svaltwo).addClass("reserved");
 				            	$(".seat").off("click");
+				        	  svallist.push(sval);
+				        	  svallist.push(svaltwo);
 				            	countnow= countnow-2;
 				        	  } else{
 
@@ -183,10 +183,10 @@
 						            alert("이미 예약되어있는 좌석입니다.");
 							} else {
 				        	  if(!(svallist.includes(sval)) || !(svallist.includes(svaltwo))){
-								 svallist.push(sval);
-					        	  svallist.push(svaltwo);
 								$("." + sval).addClass("reserved");
 								$("." + svaltwo).addClass("reserved");
+								 svallist.push(sval);
+					        	  svallist.push(svaltwo);
 				           	 	countnow=countnow-2;
 				        	  }else{
 				        		  alert("이미 선택하신 좌석입니다.");
@@ -273,10 +273,10 @@
 		seatclick();
 		
 		
-		$(document).on("click", ".finreservation", function(){
-			if(!(svallist == null) && !(svallist == "")){
+			$(document).on("click", ".finreservation", function(){
+				if(!(svallist == null) && !(svallist == "")){
 				let form = $('<form></form>');
-				form.attr("action","./reseat2");
+				form.attr("action","./reseat1");
 				form.attr("method", "post");
 				form.append($("<input>",{type:'hidden', name:"list", value:svallist}));
 				form.append($("<input>",{type:'hidden', name:"ms_idx", value:${ms_idx}}));
@@ -285,11 +285,12 @@
 				form.append($("<input>",{type:'hidden', name:"special", value:$(".now3").text()}));
 				form.appendTo("body");
 				form.submit();
-			}else{
-				alert("좌석을 선택해주세요");
-				return false;
-			}
-		});
+				}else{
+					alert("좌석을 선택해주세요");
+					return false;
+				}
+			});
+		
 		
 	});
 	
@@ -414,25 +415,7 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class="row">
-				<p class="p">J</p>
-				<c:forEach begin="88" end="99" var="i">
-					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
-						<input type="hidden" name="${slist[i].ss_seat}"
-							class="${slist[i].ss_res}">
-					</div>
-				</c:forEach>
-			</div>
-			<div class="row">
-				<p class="p">K</p>
-				<c:forEach begin="100" end="111" var="i">
-					<div class="seat ${slist[i].ss_seat}">${slist[i].ss_seat}
-						<input type="hidden" name="${slist[i].ss_seat}"
-							class="${slist[i].ss_res}">
-					</div>
-				</c:forEach>
-	
-			</div>
+	 
 			
 			
 			<div class="clear"></div>
@@ -486,6 +469,7 @@
 			<div class="clear" style="height:30px; "></div>
 				<button class="goback">이전</button>
 				<button class="finreservation">결제하기</button>
+				${list }
 			</div>
 			
 		</div>

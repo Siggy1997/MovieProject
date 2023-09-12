@@ -11,25 +11,33 @@ public class ReseatService {
 	@Autowired
 	private ReseatDAO reseatDAO;
 
-	public List<Map<String, Object>> seatnum() {
-		return reseatDAO.seatnum();
+	public List<Map<String, Object>> seatnum(String ms_idx) {
+		return reseatDAO.seatnum(ms_idx);
 	}
 
-	public int reserve(String sval) {
-		return reseatDAO.reserve(sval);
+	public int reserve(Map<String, Object> val) {
+		return reseatDAO.reserve(val);
+	}
+	public int reservetwo(Map<String, Object> val) {
+		return reseatDAO.reservetwo(val);
 	}
 
-	public int reservetwo(String svaltwo) {
-		return reseatDAO.reservetwo(svaltwo);
+
+	public Map<String, Object> movieschedule(String ms_idx) {
+		return reseatDAO.movieschedule(ms_idx);
 	}
 
-	public void finreservation(List<String> list) {
-		reseatDAO.finreservation(list);
+	public void finreservation(Map<String, Object> params) {
+		reseatDAO.finreservation(params);
+		
 	}
 
-	public Map<String, Object> movieschedule() {
-		return reseatDAO.movieschedule();
-	}
+
+
+
+
+
+
 
 
 
